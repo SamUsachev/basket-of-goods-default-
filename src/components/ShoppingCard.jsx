@@ -9,16 +9,13 @@ export const ShoppingCard = () => {
       perviousValue + currentItem.count * currentItem.price,
     0
   );
-  const Footer = (
+  const FinalPrice = (
     <div className="result-panel">
       <span>
         Общая стоимость: <span className="value">{result}</span> $.
       </span>
       <button>Оформить</button>
     </div>
-  );
-  const EmptyTemplate = (
-    <div className="empty-text">У вас нет товаров в корзине</div>
   );
   const handleRemoveItem = (id) => {
     setItems(items.filter((item) => item.id !== id));
@@ -51,18 +48,19 @@ export const ShoppingCard = () => {
   return (
     <div>
       <h1>Корзина</h1>
-      {!!items.length ? (
+      {!!items.length && (
         <ItemsTable
           items={items}
           removeItem={handleRemoveItem}
           increaceCount={handleIncreaceCount}
           decreaceCount={handleDecreaceCount}
         />
-      ) : (
-        EmptyTemplate
+      )}
+      {!items.length && (
+        <div className="empty-text">У вас нет товаров в корзине</div>
       )}
 
-      {!!items.length && Footer}
+      {!!items.length && FinalPrice}
     </div>
   );
 };
